@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include<ctime>
+#include <math.h>
 
 typedef int element;
 
@@ -45,14 +46,12 @@ int main() {
 	//seeds the random number generator
 	srand(int(time(0)));
 
-	int userval;
 	AList A;
 
 	while (!A.GetQuit()) {
 		A.Print();
 		A.GetMenu();
-		userval = A.CheckRange(1, 8);
-		A.executeMenu(userval);
+		A.executeMenu(A.CheckRange(1, 8));
 
 	}
 	return 0;
@@ -60,6 +59,8 @@ int main() {
 
 
 AList::AList() {
+    cout << "Sort and Search Demo Program, version 1.0" << endl;
+    cout << "(c) 2018, Brandon Bray" << endl;
 	ordered = true;
 	quit = false;
 	size = 0;
@@ -109,6 +110,7 @@ void AList::executeMenu(int userval) {
 		break;
 	default:
 		quit = true;
+            cout << endl << "Quiting Sort and Search Demo Program, version 1.0" << endl;
 		break;
 	}
 }
@@ -187,7 +189,7 @@ void AList::Print() {
 		cout << "\t(empty)";
 	else
 		for (int i = 0; i < size; i++)
-			cout << items[i] << ", ";
+			cout << items[i] << " ";
 	if (ordered)
 		cout << "\t" << "(KNOWN to be ordered)" << endl;
 	else
@@ -414,9 +416,11 @@ void AList::BinarySearch() {
 		}
 		else if (target < items[mid]) {
 			high = mid - 1;
+            compared++;
 		}
 		else {
 			low = mid + 1;
+            compared++;
 		}
 		compared++;
 	}
